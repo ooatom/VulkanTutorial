@@ -73,8 +73,8 @@ void ParticleRenderer::createPipeline() {
 
     VkPipelineLayoutCreateInfo computePipelineLayoutCreateInfo{};
     computePipelineLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-    computePipelineLayoutCreateInfo.pSetLayouts = &computeDescriptorSetLayout;
     computePipelineLayoutCreateInfo.setLayoutCount = 1;
+    computePipelineLayoutCreateInfo.pSetLayouts = &computeDescriptorSetLayout;
     computePipelineLayoutCreateInfo.pushConstantRangeCount = 0;
     computePipelineLayoutCreateInfo.pPushConstantRanges = nullptr;
 
@@ -401,8 +401,8 @@ void ParticleRenderer::update(float deltaTime, uint32_t frameNum) {
 
 void ParticleRenderer::compute(VkCommandBuffer commandBuffer, uint32_t frameNum) {
     vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE, computePipeline);
-    vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE, computePipelineLayout,
-                            0, 1, &computeDescriptorSets[frameNum], 0, nullptr);
+    vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE,computePipelineLayout,0,
+                            1, &computeDescriptorSets[frameNum],0, nullptr);
     vkCmdDispatch(commandBuffer, ceil(PARTICLE_COUNT / 256.0), 1, 1);
 }
 
