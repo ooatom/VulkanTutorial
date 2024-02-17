@@ -58,18 +58,14 @@ void ParticleRenderer::createDescriptorSetLayout() {
         VK_SUCCESS) {
         throw std::runtime_error("failed to create descriptor set layout!");
     }
+
+    // no graphicsDescriptorSets
 }
 
 void ParticleRenderer::createPipeline() {
     auto computeShaderCode = readFile("shaders/particle.comp.spv");
 
     VkShaderModule computeShaderModule = app->createShaderModule(computeShaderCode);
-
-    VkPipelineShaderStageCreateInfo computePipelineShaderStageCreateInfo{};
-    computePipelineShaderStageCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-    computePipelineShaderStageCreateInfo.stage = VK_SHADER_STAGE_COMPUTE_BIT;
-    computePipelineShaderStageCreateInfo.module = computeShaderModule;
-    computePipelineShaderStageCreateInfo.pName = "main";
 
     VkPipelineLayoutCreateInfo computePipelineLayoutCreateInfo{};
     computePipelineLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
@@ -82,6 +78,12 @@ void ParticleRenderer::createPipeline() {
                                nullptr, &computePipelineLayout) != VK_SUCCESS) {
         throw std::runtime_error("failed to create compute pipeline layout!");
     }
+
+    VkPipelineShaderStageCreateInfo computePipelineShaderStageCreateInfo{};
+    computePipelineShaderStageCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+    computePipelineShaderStageCreateInfo.stage = VK_SHADER_STAGE_COMPUTE_BIT;
+    computePipelineShaderStageCreateInfo.module = computeShaderModule;
+    computePipelineShaderStageCreateInfo.pName = "main";
 
     VkComputePipelineCreateInfo computePipelineCreateInfo{};
     computePipelineCreateInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
@@ -234,7 +236,6 @@ void ParticleRenderer::createPipeline() {
 
     VkPipelineLayoutCreateInfo pipelineLayoutCreateInfo{};
     pipelineLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-//    pipelineLayoutCreateInfo.flags
     pipelineLayoutCreateInfo.setLayoutCount = 0;
     pipelineLayoutCreateInfo.pSetLayouts = VK_NULL_HANDLE;
     pipelineLayoutCreateInfo.pushConstantRangeCount = 0;

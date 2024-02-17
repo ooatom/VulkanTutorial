@@ -1410,6 +1410,9 @@ void Application::drawFrame() {
     presentInfo.pImageIndices = &imageIndex;
     presentInfo.pResults = nullptr;
 
+    // Queueing an image for presentation defines a set of queue operations, including waiting on the semaphores and submitting a presentation
+    // request to the presentation engine. However, the scope of this set of queue operations does not include the actual processing of the
+    // image by the presentation engine.
     // vkQueuePresentKHR releases the acquisition of the image, which signals imageAvailableSemaphores for that image in later frames
     result = vkQueuePresentKHR(presentQueue, &presentInfo);
 //        std::cout << std::string(string_VkResult(result)) << ", framebufferResized: " << framebufferResized << "\n";

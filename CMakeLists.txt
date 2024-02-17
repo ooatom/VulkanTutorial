@@ -6,16 +6,11 @@ project(renderer)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 add_executable(${PROJECT_NAME} src/main.cpp src/Application.cpp src/MeshRenderer.cpp src/ParticleRenderer.cpp)
 
-include(src/shaders/shaders.cmake)
-add_dependencies(${PROJECT_NAME} shaderCompilation)
-
-include(src/assets/assets.cmake)
-add_dependencies(${PROJECT_NAME} assetCopy)
-
 # -------- Vulkan --------
-set(VULKAN_ROOT $ENV{HOME}/VulkanSDK/1.3.250.1/macOS)
+set(VULKAN_ROOT $ENV{HOME}/VulkanSDK/1.3.275.0/macOS)
+set(VULKAN_LIB ${VULKAN_ROOT}/lib/libvulkan.1.3.275.dylib)
 target_include_directories(${PROJECT_NAME} PUBLIC "${VULKAN_ROOT}/include")
-target_link_libraries(${PROJECT_NAME} PUBLIC "${VULKAN_ROOT}/lib/libvulkan.1.3.250.dylib")
+target_link_libraries(${PROJECT_NAME} PUBLIC ${VULKAN_LIB})
 
 #add_library(Vulkan SHARED IMPORTED)
 #set_target_properties(Vulkan PROPERTIES
@@ -53,3 +48,10 @@ target_link_libraries(${PROJECT_NAME} PUBLIC ImGUI)
 
 # -------- libs --------
 target_include_directories(${PROJECT_NAME} PUBLIC "./libs")
+
+
+include(src/shaders/shaders.cmake)
+add_dependencies(${PROJECT_NAME} shaderCompilation)
+
+include(src/assets/assets.cmake)
+add_dependencies(${PROJECT_NAME} assetCopy)

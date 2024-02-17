@@ -70,6 +70,7 @@ private:
     Application *app;
     VkDescriptorSetLayout computeDescriptorSetLayout;
     std::vector<VkDescriptorSet> computeDescriptorSets;
+    // std::vector<VkDescriptorSet> graphicsDescriptorSets;
 
     VkPipelineLayout computePipelineLayout;
     VkPipeline computePipeline;

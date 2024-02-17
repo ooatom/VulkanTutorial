@@ -1,4 +1,4 @@
-set(GLSLC /Users/oo/VulkanSDK/1.3.250.1/macOS/bin/glslc)
+set(GLSLC ${VULKAN_ROOT}/bin/glslc)
 
 function(compileShader INPUT_FILE OUTPUT_FILE)
     add_custom_command(
